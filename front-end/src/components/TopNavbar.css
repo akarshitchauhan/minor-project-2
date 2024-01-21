@@ -22,7 +22,7 @@
   
   .search-bar input {
     margin-right: 10px;
-    width: 600px;
+    width: 100%; /* Adjust width to 100% for responsiveness */
     height: 30px;
     margin-top: 5px;
     padding: 8px;
@@ -43,24 +43,23 @@
   .search-bar button:hover {
     background-color: rgb(215, 233, 245);
   }
-
-  .login-button a{
+  
+  .login-button a {
     color: black;
     margin-right: 16px;
-    text-decoration: none;  
+    text-decoration: none;
   }
-
+  
   .login-button a:hover {
     color: rgb(63, 166, 235);
     transform: translateX(5px) scale(1.2);
-
   }
-
+  
   .login-button button {
     background-color: white;
     color: #333;
     padding: 8px 12px;
-    border: 1.3px solid black; 
+    border: 1.3px solid black;
     border-radius: 15px;
     margin-right: 16px;
     margin-top: 5px;
@@ -70,8 +69,18 @@
   
   .login-button button:hover {
     background-color: rgb(215, 233, 245);
-    transform: translateX(5px) scale(1.1); 
+    transform: translateX(5px) scale(1.1);
   }
-
-
+  
+  @media only screen and (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    .search-bar input {
+      width: 100%;
+      margin-right: 0;
+    }
+  
+    .login-button {
+      margin-right: 0;
+    }
+  }
   

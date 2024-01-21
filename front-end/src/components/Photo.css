@@ -9,19 +9,25 @@
   
   .photo-frame {
     width: 100%;
-    margin-left: 280px;
+    margin: 0 auto; /* Center the frame horizontally */
     max-width: 1300px; /* Adjust the maximum width as needed */
     max-height: 400px;
     overflow: hidden;
   }
   
   .photo-frame img {
-    width: 80%;
+    width: 100%;
     height: auto;
     transition: transform 0.8s ease-in-out;
   }
   
   .photo-frame img:hover {
-    transform: translateX(-20px) scale(1.1); 
+    transform: translateX(-20px) scale(1.1);
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .photo-frame {
+      margin-left: 0; /* Remove left margin on smaller screens */
+    }
   }
   

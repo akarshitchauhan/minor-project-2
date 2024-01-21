@@ -32,3 +32,10 @@
     color: #333;
   }
   
+  @media only screen and (max-width: 768px) {
+    .category-card {
+      width: 100%; /* Make it full-width on smaller screens */
+      margin: 10px 0; /* Adjust margin for better spacing on smaller screens */
+    }
+  }
+  

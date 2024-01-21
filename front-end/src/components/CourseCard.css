@@ -1,6 +1,5 @@
 /* CourseCard.css */
 
-
 .course-card {
     width: 300px;
     border: 1px solid #ccc;
@@ -13,8 +12,8 @@
     display: inline-block;
     height: 350px; /* Set a fixed height for the CourseCard */
   }
-
-  .course-card:hover{
+  
+  .course-card:hover {
     transform: translateX(5px) scale(1.1);
   }
   
@@ -51,27 +50,31 @@
     margin-bottom: 8px;
   }
   
-  .course-enroll-button {
-    background-color: #3498db;
-    color: #fff;
+  .course-enroll-button,
+  .course-wishlist-button {
     padding: 8px 12px;
-    border: none;
-    border-radius: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  .course-wishlist-button{
-    background-color: white;
-    color: #3498db;
-    padding: 8px 12px;
-    border: 1px solid #3498db;
-    margin-left: 105px;
     border-radius: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
-  .course-enroll-button:hover {
+  .course-enroll-button:hover,
+  .course-wishlist-button:hover {
     background-color: #2980b9;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .course-card {
+      width: 100%; /* Make it full-width on smaller screens */
+      margin: 10px 0; /* Adjust margin for better spacing on smaller screens */
+    }
+  
+    .course-details {
+      height: auto; /* Allow the course details to expand based on content */
+    }
+  
+    .course-wishlist-button {
+      margin-left: 0; /* Remove left margin on smaller screens */
+    }
   }
   

@@ -2,7 +2,7 @@
 
 .text-display {
     text-align: center;
-    margin-top: 30px ;
+    margin-top: 30px;
     margin-bottom: 15px;
   }
   
@@ -19,4 +19,11 @@
   }
   
   /* Add more styles as needed */
+  
+  @media only screen and (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+    .type-animation-wrapper {
+      font-size: 1.5em; /* Adjust font size for smaller screens */
+    }
+  }
   

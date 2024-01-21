@@ -1,0 +1,27 @@
+/* PhotoFrame.css */
+
+.photo-frame-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Set the height to the full viewport height */
+  }
+  
+  .photo-frame {
+    width: 100%;
+    margin-left: 280px;
+    max-width: 1300px; /* Adjust the maximum width as needed */
+    max-height: 400px;
+    overflow: hidden;
+  }
+  
+  .photo-frame img {
+    width: 80%;
+    height: auto;
+    transition: transform 0.8s ease-in-out;
+  }
+  
+  .photo-frame img:hover {
+    transform: translateX(-20px) scale(1.1); 
+  }
+  

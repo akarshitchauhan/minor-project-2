@@ -1,0 +1,22 @@
+/* TextDisplay.css */
+
+.text-display {
+    text-align: center;
+    margin-top: 30px ;
+    margin-bottom: 15px;
+  }
+  
+  .type-animation-wrapper {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    font-size: 2em;
+    display: inline-block;
+    font-weight: 700;
+  }
+  
+  .type-animation-wrapper .type-animation {
+    display: inline-block;
+  }
+  
+  /* Add more styles as needed */
+  

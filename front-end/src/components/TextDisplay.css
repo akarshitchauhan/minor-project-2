@@ -2,13 +2,13 @@
 
 .text-display {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 10px;
     margin-bottom: 15px;
   }
   
   .type-animation-wrapper {
     font-family: 'Roboto', sans-serif;
-    color: #333;
+    color: black;
     font-size: 2em;
     display: inline-block;
     font-weight: 700;

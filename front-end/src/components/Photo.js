@@ -1,6 +1,7 @@
 // PhotoFrame.js
 
 import React, { useState, useEffect } from 'react';
+import TextDisplay from './TextDisplay';
 import './Photo.css';
 
 const Photo = ({ photos }) => {
@@ -18,6 +19,7 @@ const Photo = ({ photos }) => {
     <div className="photo-frame">
       <div className="photo-frame-inner">
         <img src={process.env.PUBLIC_URL + photos[currentPhotoIndex]} alt={`Landscape ${currentPhotoIndex + 1}`} />
+        <div className="dummy-text"><TextDisplay/></div>
       </div>
     </div>
   );

@@ -1,0 +1,43 @@
+.text1 {
+    margin-top: 50px;
+    margin-bottom: 5px;
+    margin-left: 10%; /* Use percentages for responsive margins */
+    font-family: 'Arial', sans-serif; /* Change the font family as needed */
+  }
+  
+  .text1 h1 {
+    font-size: 18px;
+    color: #333; /* Change the text color as needed */
+  }
+  
+  .text2 h1 {
+    text-align: center;
+    margin-top: 30px;
+    justify-content: center;
+    font-size: 24px;
+    font-family: 'Arial', sans-serif;
+    color: black; /* Change the text color as needed */
+  }
+  
+  .course-card-div {
+    margin-left: 8%;
+    margin-right: 8%; /* Add some right margin for spacing */
+  }
+  
+  .category-card-div {
+    margin-left: 8%;
+    margin-right: 8%; /* Add some right margin for spacing */
+  }
+  
+  /* Media query for smaller screens */
+  @media only screen and (max-width: 768px) {
+    .text1 {
+      margin-left: 8%; /* Adjust margins for smaller screens */
+    }
+  
+    .course-card-div,
+    .category-card-div {
+      margin-left: 8%;
+      margin-right: 8%;
+    }
+  }

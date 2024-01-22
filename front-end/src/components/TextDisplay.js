@@ -8,7 +8,7 @@ const TextDisplay = () => {
     <div className="text-display">
       <TypeAnimation
         sequence={[
-          'Explore Endless Possibilities 😉 ',
+          'Explore Endless Possibilities! ',
           1000,
           'Choose from 1 Million+ Courses! ',
           1000,

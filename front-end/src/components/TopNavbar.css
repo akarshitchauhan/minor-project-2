@@ -8,7 +8,7 @@
     border: 1px solid #ccc;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 20px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   }
   
   .logo {
@@ -22,7 +22,7 @@
   
   .search-bar input {
     margin-right: 10px;
-    width: 100%; /* Adjust width to 100% for responsiveness */
+    width: 600px; /* Adjust width to 100% for responsiveness */
     height: 30px;
     margin-top: 5px;
     padding: 8px;
@@ -44,18 +44,18 @@
     background-color: rgb(215, 233, 245);
   }
   
-  .login-button a {
+  .button-cont a {
     color: black;
     margin-right: 16px;
     text-decoration: none;
   }
   
-  .login-button a:hover {
+  .button-cont a:hover {
     color: rgb(63, 166, 235);
     transform: translateX(5px) scale(1.2);
   }
   
-  .login-button button {
+  /* .button-cont button {
     background-color: white;
     color: #333;
     padding: 8px 12px;
@@ -67,8 +67,42 @@
     transition: background-color 0.3s ease;
   }
   
-  .login-button button:hover {
+  .button-cont button:hover {
     background-color: rgb(215, 233, 245);
+    transform: translateX(5px) scale(1.1);
+  } */
+
+  .login-button{
+    padding: 8px 12px;
+    border: 1px solid #2980b9;
+    color: #2980b9;
+    border-radius: 16px;
+    margin-left: 40px;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.3s ease;
+  }
+
+  .login-button:hover {
+    background-color: #293fb9;
+    color: white;
+    transform: translateX(5px) scale(1.1);
+  }
+
+  .signup-button{
+    padding: 8px 12px;
+    border: 1px solid #2980b9;
+    border-radius: 16px;
+    margin-right: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    color: white;
+    background-color: #2980b9;
+    transition: background-color 0.3s ease;
+  }
+
+  .signup-button:hover{
+    background-color: #293fb9;
     transform: translateX(5px) scale(1.1);
   }
   
@@ -79,7 +113,7 @@
       margin-right: 0;
     }
   
-    .login-button {
+    .button-cont {
       margin-right: 0;
     }
   }

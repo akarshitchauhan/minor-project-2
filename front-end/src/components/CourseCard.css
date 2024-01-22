@@ -8,13 +8,14 @@
     margin: 10px;
     margin-left: 20px;
     margin-right: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
     display: inline-block;
     height: 350px; /* Set a fixed height for the CourseCard */
   }
   
   .course-card:hover {
     transform: translateX(5px) scale(1.1);
+    box-shadow: 10px 10px 20px rgba(37, 75, 228, 0.1);
   }
   
   .course-image {
@@ -50,17 +51,36 @@
     margin-bottom: 8px;
   }
   
-  .course-enroll-button,
+  .course-enroll-button{
+    padding: 8px 12px;
+    border: 1px solid #2980b9;
+    border-radius: 16px;
+    margin-right: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    color: white;
+    background-color: #2980b9;
+    transition: background-color 0.3s ease;
+  }
+
   .course-wishlist-button {
     padding: 8px 12px;
+    border: 1px solid #2980b9;
+    color: #2980b9;
     border-radius: 16px;
+    margin-left: 40px;
     cursor: pointer;
+    background-color: white;
     transition: background-color 0.3s ease;
   }
   
-  .course-enroll-button:hover,
+  .course-enroll-button:hover{
+    background-color: #293fb9;
+  }
+
   .course-wishlist-button:hover {
-    background-color: #2980b9;
+    background-color: #293fb9;
+    color: white;
   }
   
   @media only screen and (max-width: 768px) {

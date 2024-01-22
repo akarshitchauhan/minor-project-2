@@ -11,7 +11,7 @@
     width: 100%;
     margin: 0 auto; /* Center the frame horizontally */
     max-width: 1300px; /* Adjust the maximum width as needed */
-    max-height: 400px;
+    max-height: 350px;
     overflow: hidden;
   }
   
@@ -23,6 +23,17 @@
   
   .photo-frame img:hover {
     transform: translateX(-20px) scale(1.1);
+  }
+
+  .dummy-text {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; /* Set the text color */
+    font-size: 18px; /* Set the font size */
+    text-align: center;
+    /* Add more styling as needed */
   }
   
   @media only screen and (max-width: 768px) {

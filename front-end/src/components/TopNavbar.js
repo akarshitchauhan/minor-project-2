@@ -33,10 +33,10 @@ const TopNavbar = () => {
           onKeyDown={handleSearch}
         />
       </div>
-      <div className="login-button">
+      <div className="button-cont">
         <a href="https://">Be an instructor!</a>
-        <button>Log in</button>
-        <button>Sign up</button>
+        <button className="login-button">Log in</button>
+        <button className="signup-button">Sign up</button>
       </div>
     </nav>
   );

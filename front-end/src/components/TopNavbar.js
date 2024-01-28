@@ -1,11 +1,14 @@
 // TopNavbar.js
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './TopNavbar.css';
 
 const TopNavbar = () => {
-  const phrases = ["What's on your mind today? 🤔", "What are you thinking of studying? 🤔", "What's your area of interest? 🤔"];
+  const phrases = ["  What's on your mind today? 🤔", "  What are you thinking of studying? 🤔", "   What's your area of interest? 🤔"];
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+
+  const navigate = useNavigate();
 
   const handleSearch = (event) => {
     if (event.key === 'Enter') {
@@ -13,6 +16,11 @@ const TopNavbar = () => {
       console.log('Search:', event.target.value);
       // You can replace the console.log with your actual search functionality
     }
+  };
+
+  const handleLogin = () => {
+    // Call the navigate function to redirect to another page (replace '/login' with your desired path)
+    navigate('/login');
   };
 
   useEffect(() => {
@@ -27,7 +35,8 @@ const TopNavbar = () => {
     <nav className="top-navbar">
       <div className="logo">Your Logo</div>
       <div className="search-bar">
-        <input
+        <input 
+          className="search-box"
           type="text"
           placeholder={phrases[currentPhraseIndex]}
           onKeyDown={handleSearch}
@@ -35,7 +44,7 @@ const TopNavbar = () => {
       </div>
       <div className="button-cont">
         <a href="https://">Be an instructor!</a>
-        <button className="login-button">Log in</button>
+        <button className="login-button" onClick={handleLogin}>Log in</button>
         <button className="signup-button">Sign up</button>
       </div>
     </nav>

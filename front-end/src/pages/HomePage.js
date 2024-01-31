@@ -5,7 +5,7 @@ import BottomComponent from "../components/BottomComponent";
 import AIAssistant from "../components/AIAssistant";
 import CourseCard from "../components/CourseCard";
 import CategoryCard from "../components/CategoryCard";
-import "./HomePage.css";
+import TextDisplay from "../components/TextDisplay";
 
 const HomePage = () => {
   const photos = [
@@ -42,6 +42,27 @@ const HomePage = () => {
         "Learn effective digital marketing techniques to boost online presence.",
       instructor: "Emily Davis",
       image: "/images/course4.jpg",
+    },
+    {
+      title: "Graphic Design Fundamentals",
+      description:
+        "Master the basics of graphic design and create visually appealing content.",
+      instructor: "Alex Turner",
+      image: "/images/course5.jpg",
+    },
+    {
+      title: "Graphic Design Fundamentals",
+      description:
+        "Master the basics of graphic design and create visually appealing content.",
+      instructor: "Alex Turner",
+      image: "/images/course5.jpg",
+    },
+    {
+      title: "Graphic Design Fundamentals",
+      description:
+        "Master the basics of graphic design and create visually appealing content.",
+      instructor: "Alex Turner",
+      image: "/images/course5.jpg",
     },
     {
       title: "Graphic Design Fundamentals",
@@ -90,27 +111,36 @@ const HomePage = () => {
 
   return (
     <div>
-      <TopNavbar />
+      <div className="pt-16">
+        <TopNavbar />
+      </div>
+      <TextDisplay />
       <AIAssistant />
       <Photo photos={photos} />
-      <div className="text1">
-        <h1>Get yourself enrolled in some of our trending courses!</h1>
+      <div className="flex flex-wrap justify-center items-center mt-12 mb-1 ml-4 sm:ml-10 font-sans">
+        <h1 className="font-serif tracking-wide text-2xl font-bold text-gray-800">
+          Get yourself enrolled in some of our trending courses!
+        </h1>
       </div>
-      <div className="course-card-div">
+      <div className="flex flex-wrap justify-center items-center ml-4 sm:ml-8 mr-4 sm:mr-8 p-">
         {dummyCourses.map((course, index) => (
           <CourseCard key={index} course={course} />
         ))}
       </div>
-      <div className="text1">
-        <h1>Browse courses from specific categories</h1>
+      <div className="flex flex-wrap justify-center items-center mt-12 mb-1 ml-4 sm:ml-10 font-sans">
+        <h1 className="font-serif tracking-wide text-2xl font-bold text-gray-800">
+          Browse courses from specific categories
+        </h1>
       </div>
-      <div className="category-card-div">
+      <div className="flex flex-wrap justify-center items-center ml-4 sm:ml-8 mr-4 sm:mr-8">
         {dummyCategories.map((category, index) => (
           <CategoryCard key={index} category={category} />
         ))}
       </div>
-      <div className="text2">
-        <h1>Get yourself job ready 👀</h1>
+      <div className="mt-8 flex justify-center font-sans">
+        <h1 className="font-serif tracking-wide text-2xl font-bold text-black">
+          Get yourself job ready 👀
+        </h1>
       </div>
       <BottomComponent />
     </div>

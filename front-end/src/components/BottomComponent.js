@@ -1,15 +1,12 @@
-// BottomComponent.js
-
 import React from 'react';
-import './BottomComponent.css'; // Import the CSS file
 
 const BottomComponent = () => {
   return (
-    <div className="bottom-component">
+    <div className="bg-white text-black p-2 flex justify-between items-center border border-gray-300 shadow-md">
       {/* Content for the bottom component */}
       <p>This is the bottom component. Add your content here.</p>
       {/* Example button */}
-      <button className="button">Click me</button>
+      <button className="bg-white text-gray-800 px-3 py-1 border border-black rounded-full cursor-pointer transition-colors duration-300 hover:bg-blue-200">Click me</button>
     </div>
   );
 };

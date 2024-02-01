@@ -1,7 +1,4 @@
-// Photo.js
-
 import React, { useState, useEffect } from 'react';
-import TextDisplay from './TextDisplay';
 
 const Photo = ({ photos }) => {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);

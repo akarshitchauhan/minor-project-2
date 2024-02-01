@@ -11,7 +11,6 @@ const HomePage = () => {
   const photos = [
     "/images/photo1.png",
     "/images/photo2.png",
-    // Add more photo paths as needed
   ];
 
   const dummyCourses = [
@@ -106,7 +105,6 @@ const HomePage = () => {
       name: "Design",
       image: "/images/category8.jpg",
     },
-    // Add more categories as needed
   ];
 
   return (

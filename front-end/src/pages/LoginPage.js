@@ -49,7 +49,6 @@ const LoginPage = () => {
             </span>
           </div>
           <div className="border-b-2 border-blue-600 w-3/4 mb-8"></div>
-          {/* Your login/signup form components go here */}
           {isLoginForm ? (
             <div>
               <div className="text-xl mb-4">Email/Phone No. :</div>

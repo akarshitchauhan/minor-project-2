@@ -9,7 +9,7 @@ const TopNavbar = () => {
     "   What's your area of interest? 🤔",
   ];
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isWishListOpen, setisWishListOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -22,6 +22,10 @@ const TopNavbar = () => {
 
   const handleLogin = () => {
     navigate("/login");
+  };
+
+  const userProfile = () => {
+    navigate("/user");
   };
 
   const handleWishlistClick = () => {
@@ -38,7 +42,7 @@ const TopNavbar = () => {
     }, 4000);
 
     return () => clearInterval(intervalId);
-  }, [phrases.length]); // Include phrases.length in the dependency array
+  }, [phrases.length]); 
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white text-black p-2 flex flex-col sm:flex-row justify-between items-center border border-gray-300 shadow-md">
@@ -54,7 +58,7 @@ const TopNavbar = () => {
         {isLoggedIn ? (
           <div className="flex space-x-4 mt-2 sm:mt-0">
             <button className="px-4 py-2 border-2 font-serif border-blue-700 text-blue-700 rounded-full cursor-pointer transition-colors duration-300 hover:bg-blue-700 hover:text-white" onClick={handleWishlistClick}>Wishlist</button>
-            <button className="px-4 py-2 border-2 font-serif border-blue-700 bg-blue-700 text-white rounded-full cursor-pointer transition-colors duration-300 hover:bg-blue-900" onClick={handleLogin}>
+            <button className="px-4 py-2 border-2 font-serif border-blue-700 bg-blue-700 text-white rounded-full cursor-pointer transition-colors duration-300 hover:bg-blue-900" onClick={userProfile}>
               Profile
             </button>
           </div>

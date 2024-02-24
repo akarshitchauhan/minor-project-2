@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const LoginPage = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [isLoginClicked, setIsLoginClicked] = useState(true);
   const [isSignupClicked, setIsSignupClicked] = useState(false);
+
+  useEffect(() => {
+    AOS.init({duration: 1500});
+  },[])
 
   const handleFormToggle = () => {
     setIsLoginForm(!isLoginForm);
@@ -22,12 +28,12 @@ const LoginPage = () => {
   return (
     <div className="flex h-screen">
       <div className="flex-1 bg-blue-800 text-white flex flex-col justify-center items-center">
-        <h1 className="text-4xl mb-8">Website Name</h1>
-        <img src="/images/login.gif" alt="Logo" className="w-96 rounded-full" />
+        <h1 data-aos="fade-right" className="text-4xl mb-8">Bits & Bytes</h1>
+        <img data-aos="fade-right" src="/images/login.gif" alt="Logo" className="w-96 rounded-full" />
       </div>
       <div className="flex-1 flex flex-col justify-center items-center px-4 sm:px-0">
         <div className="flex flex-col justify-center items-center w-full sm:w-3/4 lg:w-1/2">
-          <div className="flex justify-between mb-8">
+          <div data-aos="fade-left" className="flex justify-between mb-8">
             <span
               className={`text-3xl cursor-pointer ${isLoginClicked ? "text-blue-800" : "text-gray-500"}`}
               onClick={() => {
@@ -48,9 +54,9 @@ const LoginPage = () => {
               Sign Up
             </span>
           </div>
-          <div className="border-b-2 border-blue-600 w-3/4 mb-8"></div>
+          <div data-aos="fade-left" className="border-b-2 border-blue-600 w-3/4 mb-8"></div>
           {isLoginForm ? (
-            <div>
+            <div data-aos="fade-left">
               <div className="text-xl mb-4">Email/Phone No. :</div>
               <div className="mb-4">
                 <input
@@ -75,7 +81,7 @@ const LoginPage = () => {
               </div>
             </div>
           ) : (
-            <div>
+            <div data-aos="fade-left">
               <div className="overflow-y-auto max-h-96 scrollbar-thin scrollbar-thumb-transparent">
                 <div className="text-xl mb-4">Full Name :</div>
                 <div className="mb-4">

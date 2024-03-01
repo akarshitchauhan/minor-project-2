@@ -12,7 +12,7 @@ const About = () => {
         <div className="flex flex-row">
           <div className="text-3xl font-semibold">Why considering</div>
           <div className="text-3xl font-semibold ml-2 text-blue-700">
-            Bits and Bytes?{" "}
+            Bits & Bytes?{" "}
           </div>
         </div>
         <div className="text-lg p-4 max-w-96 ml-6 mt-4 text-justify">

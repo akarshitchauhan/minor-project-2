@@ -5,15 +5,28 @@ import UserBasics from "../components/userpage/UserBasics";
 import UserCourses from "../components/userpage/UserCourses";
 import UserPhoto from "../components/userpage/UserPhoto";
 import UserPasswordChange from "../components/userpage/UserPasswordChange";
+import axios from "axios";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 const UserPage = () => {
   const [activeTab, setActiveTab] = useState("basics");
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     AOS.init({ duration: 1500 });
+    fetchUserName();
   }, []);
+
+  const fetchUserName = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/user"); // Adjust the URL as per your backend endpoint
+      console.log(response.data);
+      setUserName(response.data.name); // Assuming the response contains the user's name
+    } catch (error) {
+      console.error("Error fetching user name:", error);
+    }
+  };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);

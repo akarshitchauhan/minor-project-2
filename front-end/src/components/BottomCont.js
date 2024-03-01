@@ -10,7 +10,7 @@ const BottomCont = () => {
             Top companies choose
           </div>
           <div className="text-2xl text-blue-700 mr-2 ml-2 font-semibold">
-            Bits and Bytes
+            Bits & Bytes
           </div>
           <div className="text-2xl text-white font-semibold">
             to grow their companies
@@ -31,7 +31,7 @@ const BottomCont = () => {
               </div>
             </div>
           </div>
-          <div className="text-5xl text-blue-700 font-semibold mr-8 mt-4">@Bits and Bytes</div>
+          <div className="text-5xl text-blue-700 font-semibold mr-8 mt-4">@Bits & Bytes</div>
         </div>
       </div>
     </div>

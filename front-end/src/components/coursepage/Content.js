@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
@@ -10,6 +11,8 @@ const Content = () => {
     { id: 3, title: "Section 3", isOpen: false },
     { id: 4, title: "Section 4", isOpen: false },
   ]);
+  const navigate = useNavigate();
+
   useEffect(() => {
     AOS.init({ duration: 1500 });
   }, []);
@@ -20,6 +23,10 @@ const Content = () => {
         section.id === id ? { ...section, isOpen: !section.isOpen } : section
       )
     );
+  };
+
+  const navigateToCourseLearn = () => {
+    navigate("/course/course-learn");
   };
 
   return (
@@ -45,10 +52,10 @@ const Content = () => {
             </div>
             {section.isOpen && (
               <div className="pl-12 mt-4">
-                <div>Subsection 1</div>
-                <div>Subsection 2</div>
-                <div>Subsection 3</div>
-                <div>Subsection 4</div>
+                <div onClick={navigateToCourseLearn} className="hover:cursor-pointer">Subsection 1</div>
+                <div onClick={navigateToCourseLearn} className="hover:cursor-pointer">Subsection 2</div>
+                <div onClick={navigateToCourseLearn} className="hover:cursor-pointer">Subsection 3</div>
+                <div onClick={navigateToCourseLearn} className="hover:cursor-pointer">Subsection 4</div>
               </div>
             )}
           </div>

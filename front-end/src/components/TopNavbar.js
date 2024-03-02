@@ -9,7 +9,7 @@ const TopNavbar = () => {
     "   What's your area of interest? 🤔",
   ];
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isWishListOpen, setisWishListOpen] = useState(false);
   const [wishlistCourses, setWishlistCourses] = useState([]);
 

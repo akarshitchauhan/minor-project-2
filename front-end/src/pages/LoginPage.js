@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import TopNavbar from "../components/TopNavbar";
+
+
+const clientId = "650192598457-51acedo7s8bfmqdug8p3uohuiu4m5q6d.apps.googleusercontent.com";
 
 const LoginPage = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -74,6 +79,40 @@ const LoginPage = () => {
       setSignupError("An error occurred during signup. Please try again.");
     }
   };
+
+  const [user, setUser] = useState({});
+  // TopNavbar.TopNavbar.useLoggedIn(true);
+
+  function handleCallbackResponse(response) {
+    console.log("Encoded JWT Id Token: " + response.credential);
+    var userObject = jwtDecode(response.credential);
+    console.log(userObject);
+    setUser(userObject);
+    // document.getElementById("signInDiv").hidden = true;
+    // navigate("/");
+  }
+
+  function handleSignOut(event) {
+    setUser({});
+    // document.getElementById("signInDiv").hidden = false;
+  }
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id: clientId,
+      theme: "filled_blue",
+      callback: handleCallbackResponse
+    });
+    google.accounts.id.renderButton(
+      document.getElementById("signInDiv"),
+      {
+        theme: "outline", 
+        size: "large",
+      }
+    );
+    google.accounts.id.prompt();
+  }, [isLoginForm]);
 
   return (
     <div className="flex h-screen">
@@ -154,14 +193,22 @@ const LoginPage = () => {
                   Log In
                 </button>
               </div>
-              <div className="flex justify-center">
-                <img
-                  src="/images/google.png"
-                  alt="Logo"
-                  className="w-48 hover:translate hover:scale-110 hover:shadow-l transform transition-all duration-200"
-                />
+                <div className="flex justify-center">
+                <div id="signInDiv"></div>
+                  {
+                    user &&
+                    <div>
+                    <h3>{user.name}</h3>
+                    </div>
+                  }
+                </div>
+                <div className="flex justify-center">
+                {
+                  Object.keys(user).length !== 0 &&
+                   <button onClick={(e) => handleSignOut(e)}>Sign Out</button>
+                }
+                </div>
               </div>
-            </div>
           ) : (
             <div data-aos="fade-left">
               <div className="overflow-y-auto max-h-96 scrollbar-thin scrollbar-thumb-transparent">
@@ -233,12 +280,20 @@ const LoginPage = () => {
                 </button>
               </div>
               <div className="flex justify-center">
-                <img
-                  src="/images/google.png"
-                  alt="Logo"
-                  className="w-48 hover:translate hover:scale-110 hover:shadow-l transform transition-all duration-200"
-                />
-              </div>
+              <div id="signInDiv"></div>
+                  {
+                    user &&
+                    <div>
+                    <h3>{user.name}</h3>
+                    </div>
+                  }
+                </div>
+                <div className="flex justify-center">
+                {
+                  Object.keys(user).length !== 0 &&
+                   <button onClick={(e) => handleSignOut(e)}>Sign Out</button>
+                }
+                </div>
             </div>
           )}
         </div>

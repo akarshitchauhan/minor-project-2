@@ -54,7 +54,7 @@ const LoginPage = () => {
         password: formData.password,
       });
       console.log("Login Success:", response.data);
-      navigate("/");
+      navigate("/", { state: { isLoggedIn: true } });
       // Redirect or perform other actions upon successful login
     } catch (error) {
       console.error("Login Error:", error);
@@ -72,7 +72,7 @@ const LoginPage = () => {
         confirmPassword: formData.confirmPassword,
       });
       console.log("Signup Success:", response.data);
-      navigate("/");
+      navigate("/", { state: { isLoggedIn: true } });
       // Redirect or perform other actions upon successful signup
     } catch (error) {
       console.error("Signup Error:", error);
@@ -82,6 +82,7 @@ const LoginPage = () => {
 
   const [user, setUser] = useState({});
   // TopNavbar.TopNavbar.useLoggedIn(true);
+  
 
   function handleCallbackResponse(response) {
     console.log("Encoded JWT Id Token: " + response.credential);
@@ -89,7 +90,7 @@ const LoginPage = () => {
     console.log(userObject);
     setUser(userObject);
     // document.getElementById("signInDiv").hidden = true;
-    // navigate("/");
+    navigate("/", { state: { isLoggedIn: true } });
   }
 
   function handleSignOut(event) {

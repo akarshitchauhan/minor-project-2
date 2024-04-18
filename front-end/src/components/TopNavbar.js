@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import WishListPopup from "./WishListPopup";
 
 const TopNavbar = () => {
@@ -10,6 +11,14 @@ const TopNavbar = () => {
   ];
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    // Check if the user is returning from the login page
+    if (location.state && location.state.isLoggedIn) {
+      setIsLoggedIn(true);
+    }
+  }, [location.state]);
   const [isWishListOpen, setisWishListOpen] = useState(false);
   const [wishlistCourses, setWishlistCourses] = useState([]);
 

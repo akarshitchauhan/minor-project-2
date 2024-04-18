@@ -12,7 +12,7 @@ const MainComp = () => {
   const navigate = useNavigate();
 
   const handleContinueTeaching = () => {
-    navigate("/login");
+    navigate("/teach/create-course");
   };
 
   return (

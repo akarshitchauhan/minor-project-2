@@ -1,12 +1,12 @@
-import mongoose, {Schema} from "mongoose";
-import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
+import mongoose from "mongoose";
 
-const courseSchema = new Schema(
+const courseSchema = new mongoose.Schema(
     {
         owner: {
-                type: Schema.Types.ObjectId(),
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "Instructor",
-                required: true,
+                required:true,
+                
         },
         courseName: {
             type: String,
@@ -26,6 +26,10 @@ const courseSchema = new Schema(
             type: Number,
             required: true,
         },
+        playlistUrl:{
+            type:String,
+            required:true,
+        },
         videoLinks: [
             {
                 type: String,
@@ -37,8 +41,8 @@ const courseSchema = new Schema(
         },
         studentsEnrolled: [
             {
-                type: Schema.Types.ObjectId(),
-                ref: "Student"
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
             }
         ],
     },
@@ -47,6 +51,4 @@ const courseSchema = new Schema(
     }
 )
 
-courseSchema.plugin(mongooseAggregatePaginate)
-
-export const Course = mongoose.model("Course", courseSchema)
+export default mongoose.model("Course", courseSchema)

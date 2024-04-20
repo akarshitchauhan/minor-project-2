@@ -1,13 +1,15 @@
 import express from "express";
 import "dotenv/config";
 import mongoose from "mongoose";
-import mongoRoutes from "./routes/mongoRoutes.js";
-import userRoutes from "./routes/userRoutes.js"
 import cors from "cors";
 import passport from "passport";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import "./auth/mongoAuth.js"
+import mongoRoutes from "./routes/mongoRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import courseRoutes from "./routes/courseRoutes.js"
+import instructorRoutes from "./routes/instructorRoutes.js";
 
 const PORT = process.env.PORT;
 const app = express();
@@ -55,7 +57,9 @@ app.get("/", (req, res) => {
   res.send("Homepage");
 });
 app.use("/", mongoRoutes);
-app.use("/user",userRoutes)
+app.use("/user",userRoutes);
+app.use("/course",courseRoutes);
+app.use("/instructor",instructorRoutes)
 mongoose
   .connect(mongoDBURL)
   .then(() => {
@@ -67,4 +71,6 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-
+app.all("*", (req, res) => {
+  res.status(404).json({ message: "Page Not Found" });
+});

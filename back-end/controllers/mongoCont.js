@@ -3,13 +3,13 @@ import User from "../models/userModel.js";
 const registerUser = async (req, res) => {
   try {
     const {
-      name,
+      fullname,
       email,
       contact,
       password,
     } = req.body;
     const user = new User({
-      name,
+      fullname,
       email,
       contact,
     });
@@ -22,11 +22,15 @@ const registerUser = async (req, res) => {
   }
 };
 const getLogin = (req, res) => {
-  return res.status(401).json("You need to login");
+  return res.status(401).json("Login failed");
 };
 const loginUser = async (req, res) => {
-  const user = await User.findOne({ email: req.user.email });
-  return res.json(user);
+  try {
+    const user = await User.findOne({ email: req.user.email });
+    return res.json(user);
+  } catch (error) {
+    return res.status(500).json("Login failed",error)
+  }
 };
 const logoutUser = async (req, res, next) => {
   if (req.user) {

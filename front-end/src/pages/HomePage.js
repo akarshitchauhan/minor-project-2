@@ -5,6 +5,7 @@ import First from "../components/homepage/First";
 import Second from "../components/homepage/Second";
 import Third from "../components/homepage/Third";
 import BottomCont from "../components/BottomCont";
+import ChatWidget from "../components/homepage/ChatWidget";
 
 const HomePage = () => {
   return (
@@ -14,6 +15,7 @@ const HomePage = () => {
       <First />
       <About />
       <Second />
+      <ChatWidget />
       <Third />
       <BottomCont />
     </div>

@@ -16,8 +16,8 @@ const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    fullName: "",
-    phone: "",
+    fullname: "",
+    contact: "",
     confirmPassword: "",
   });
   const [loginError, setLoginError] = useState(null);
@@ -65,13 +65,14 @@ const LoginPage = () => {
   const handleSignup = async () => {
     try {
       const response = await axios.post("http://localhost:4000/register", {
-        fullName: formData.fullName,
+        fullname: formData.fullname,
         email: formData.email,
-        phone: formData.phone,
+        contact: formData.contact,
         password: formData.password,
         confirmPassword: formData.confirmPassword,
       });
       console.log("Signup Success:", response.data);
+      console.log("Signup hogya");
       navigate("/", { state: { isLoggedIn: true } });
       // Redirect or perform other actions upon successful signup
     } catch (error) {
@@ -218,8 +219,8 @@ const LoginPage = () => {
                   <input
                     className="border border-gray-300 rounded-full py-2 px-4 w-72 hover:border-gray-500"
                     type="text"
-                    name="fullName"
-                    value={formData.fullName}
+                    name="fullname"
+                    value={formData.fullname}
                     onChange={handleChange}
                     placeholder="Enter your full name"
                   />
@@ -240,8 +241,8 @@ const LoginPage = () => {
                   <input
                     className="border border-gray-300 rounded-full py-2 px-4 w-72 hover:border-gray-500"
                     type="number"
-                    name="phone"
-                    value={formData.phone}
+                    name="contact"
+                    value={formData.contact}
                     onChange={handleChange}
                     placeholder="Enter your phone no."
                   />

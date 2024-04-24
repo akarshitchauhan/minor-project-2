@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { IdContext } from "..";
 import TopNavbar from "../components/TopNavbar";
 
 
 const clientId = "650192598457-51acedo7s8bfmqdug8p3uohuiu4m5q6d.apps.googleusercontent.com";
 
 const LoginPage = () => {
+  const { userId, setUserId } = useContext(IdContext);
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [isLoginClicked, setIsLoginClicked] = useState(true);
   const [isSignupClicked, setIsSignupClicked] = useState(false);
@@ -54,6 +56,8 @@ const LoginPage = () => {
         password: formData.password,
       });
       console.log("Login Success:", response.data);
+      await setUserId(response.data._id);
+      console.log(userId);
       navigate("/", { state: { isLoggedIn: true } });
       // Redirect or perform other actions upon successful login
     } catch (error) {

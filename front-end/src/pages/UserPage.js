@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext} from "react";
 import BottomCont from "../components/BottomCont";
 import TopNavbar from "../components/TopNavbar";
 import UserBasics from "../components/userpage/UserBasics";
@@ -9,12 +9,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { IdContext } from "..";
 
 const UserPage = () => {
   const [activeTab, setActiveTab] = useState("basics");
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
-
+  const {userId, setUserId} = useContext(IdContext);
   useEffect(() => {
     AOS.init({ duration: 1500 });
     fetchUserName();
@@ -22,9 +23,10 @@ const UserPage = () => {
 
   const fetchUserName = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/user"); // Adjust the URL as per your backend endpoint
+      console.log(userId);
+      const response = await axios.get(`http://localhost:4000/user/${userId}`); // Adjust the URL as per your backend endpoint
       console.log(response.data);
-      setUserName(response.data.name); // Assuming the response contains the user's name
+      setUserName(response.data.fullname); // Assuming the response contains the user's name
     } catch (error) {
       console.error("Error fetching user name:", error);
     }
@@ -39,7 +41,7 @@ const UserPage = () => {
 
   const handleLogOut = async () => {
     try {
-      await axios.post("http://localhost:4000/logout"); // Adjust the URL as per your backend logout endpoint
+      await axios.get("http://localhost:4000/logout"); // Adjust the URL as per your backend logout endpoint
       navigate.push("/"); // Navigate to the homepage
       console.log("logout hogya");
     } catch (error) {

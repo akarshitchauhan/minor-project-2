@@ -8,6 +8,8 @@ import InstructorPage from "./pages/InstructorPage";
 import LoginPage from "./pages/LoginPage";
 import UserPage from "./pages/UserPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthContext,IdContext } from ".";
+import { useState } from "react";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
@@ -21,9 +23,17 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState("id");
   return (
     <div>
-      <RouterProvider router={router} />
+      <AuthContext.Provider
+        value={[isLoggedIn, setIsLoggedIn]}
+      >
+        <IdContext.Provider value={{userId, setUserId}}>
+        <RouterProvider router={router} />
+        </IdContext.Provider>
+      </AuthContext.Provider>
     </div>
   );
 }

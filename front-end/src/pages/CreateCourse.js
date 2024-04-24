@@ -10,7 +10,7 @@ const CreateCourse = () => {
   const [courseTitle, setCourseTitle] = useState("");
 
   const handleNextStep = () => {
-    setCourseTitle(title);
+    setCourseTitle(courseTitle);
     setCurrentStep((prevStep) => prevStep + 1);
   };
 

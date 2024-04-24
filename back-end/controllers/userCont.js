@@ -2,8 +2,13 @@ import User from "../models/userModel.js";
 import Course from "../models/courseModel.js";
 import Instructor from "../models/instructorModel.js"
 const detailsUser = async (req, res) => {
-  const user = await User.findById(req.params.id);
-  return res.json(user);
+  try {
+    const user = await User.findById(req.params.id);
+    return res.json(user);
+  } catch (error) {
+    return res.status(500).json("User not defined")
+  }
+  
 };
 const updateUser = async (req, res) => {
   const result = await User.findByIdAndUpdate(req.params.id, req.body);

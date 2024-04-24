@@ -2,6 +2,7 @@ import  Course from "../models/courseModel.js";
 import Instructor from "../models/instructorModel.js"
 import axios from "axios";
 import "dotenv/config";
+
 const videoUser = async (playlistId) => {
   try {
     const apiKey = process.env.API_KEY;
@@ -21,7 +22,7 @@ const videoUser = async (playlistId) => {
 
 const createCourse=async(req,res)=>{
     try {
-        const {courseId,courseTitle,coursePrice,coursePlaylist,courseInfo}=req.body;
+        const {courseTitle,coursePrice,coursePlaylist,courseInfo}=req.body;
         //const owner=req.user._id;
         const url = new URL(coursePlaylist);
         const params = new URLSearchParams(url.search);
@@ -30,7 +31,7 @@ const createCourse=async(req,res)=>{
           console.log(playlistId)
           return res.json("Broken url")
         }
-        const ownerId=courseId;
+        const ownerId=req.user._id;
         const videoLinks = await videoUser(playlistId);
         const noOfVideos = videoLinks.length;
         const course = new Course({

@@ -54,10 +54,12 @@ const LoginPage = () => {
       const response = await axios.post("http://localhost:4000/login", {
         email: formData.email,
         password: formData.password,
+      },{
+        withCredentials:true
       });
       console.log("Login Success:", response.data);
       await setUserId(response.data._id);
-      console.log(userId);
+      console.log(response.data._id);
       navigate("/", { state: { isLoggedIn: true } });
       // Redirect or perform other actions upon successful login
     } catch (error) {
@@ -74,9 +76,9 @@ const LoginPage = () => {
         contact: formData.contact,
         password: formData.password,
         confirmPassword: formData.confirmPassword,
-      });
+      },{withCredentials:true});
       console.log("Signup Success:", response.data);
-      console.log("Signup hogya");
+      await setUserId(response.data._id);
       navigate("/", { state: { isLoggedIn: true } });
       // Redirect or perform other actions upon successful signup
     } catch (error) {

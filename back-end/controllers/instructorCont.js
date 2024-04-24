@@ -15,9 +15,11 @@ const becomeInstructor = async (req, res) => {
 
 const getInstructorById = async (req, res) => {
   try {
-    const instructor = await Instructor.findOne(req.params._id);
+    const instructor = await Instructor.findById(req.params.id );
     if (!instructor)
-      return res.status(404).json({ message: "Instructor not found." });
+    {
+      return res.json("Instructor not found.");
+    }
     return res.json(instructor);
   } catch (error) {
     console.error(error);
@@ -29,8 +31,8 @@ const getInstructorById = async (req, res) => {
 
 const deleteInstructorById = async (req, res) => {
   try {
-    const deletedInstructor = await Instructor.findByIdAndRemove(
-      req.params._id
+    const deletedInstructor = await Instructor.findByIdAndDelete(
+      req.params.id
     );
     if (!deletedInstructor)
       return res.status(404).json({ message: "Instructor not found." });

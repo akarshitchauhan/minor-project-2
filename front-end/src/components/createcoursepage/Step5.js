@@ -34,12 +34,11 @@ const Step5 = ({ courseTitle, courseInfo, imagePreview, coursePrice, onNextStep,
     try {
       // Make POST request to backend with course data
       const response = await axios.post("http://localhost:4000/course/create", {
-        owner:userId,
         courseTitle: courseTitle,
         courseInfo: courseInfo,
         coursePrice: coursePrice,
         coursePlaylist: coursePlaylist,
-      });
+      },{withCredentials:true});
       console.log("Data sent to backend:", response.data);
       navigate("/instructor-dashboard");
       // Handle success, e.g., show success message

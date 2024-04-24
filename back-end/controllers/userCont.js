@@ -19,8 +19,15 @@ const updateUser = async (req, res) => {
   }
 };
 const deleteUser = async (req, res) => {
+   
   const result = await User.findByIdAndDelete(req.params.id);
   if (result) {
+    const instructor = await Instructor.findById(req.params.id);
+    if (instructor) {
+      const deletedInstructor = await Instructor.findByIdAndDelete(
+        req.params.id
+      );
+    }
     res.send("Deleted successfully");
   } else {
     res.send("User not found");

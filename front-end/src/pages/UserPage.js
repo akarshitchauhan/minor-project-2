@@ -9,13 +9,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { IdContext } from "..";
+import { IdContext,AuthContext } from "..";
 
 const UserPage = () => {
   const [activeTab, setActiveTab] = useState("basics");
   const [userName, setUserName] = useState("");
   const navigate = useNavigate();
   const {userId, setUserId} = useContext(IdContext);
+  const[isLoggedIn, setIsLoggedIn]=useContext(AuthContext)
   useEffect(() => {
     AOS.init({ duration: 1500 });
     fetchUserName();
@@ -24,7 +25,7 @@ const UserPage = () => {
   const fetchUserName = async () => {
     try {
       console.log(userId);
-      const response = await axios.get(`http://localhost:4000/user/${userId}`); // Adjust the URL as per your backend endpoint
+      const response = await axios.get(`http://localhost:4000/user/${userId}`,{withCredentials:true}); // Adjust the URL as per your backend endpoint
       console.log(response.data);
       setUserName(response.data.fullname); // Assuming the response contains the user's name
     } catch (error) {
@@ -41,9 +42,15 @@ const UserPage = () => {
 
   const handleLogOut = async () => {
     try {
-      await axios.get("http://localhost:4000/logout"); // Adjust the URL as per your backend logout endpoint
-      navigate.push("/"); // Navigate to the homepage
-      console.log("logout hogya");
+      const response=await axios.get("http://localhost:4000/logout",{withCredentials:true}); // Adjust the URL as per your backend logout endpoint
+      
+      if(response.status===200){
+        navigate("/"); // Navigate to the homepage
+        setIsLoggedIn(false);
+      }
+      else{
+        alert("Error logging out")
+      }
     } catch (error) {
       console.error("Error logging out:", error);
       console.log(error);

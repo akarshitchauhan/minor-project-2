@@ -2,7 +2,8 @@ import React, { useState, useEffect ,useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
 import WishListPopup from "./WishListPopup";
-import { AuthContext } from "..";
+import { AuthContext ,IdContext} from "..";
+import axios from "axios"
 
 const TopNavbar = () => {
   const phrases = [
@@ -12,8 +13,29 @@ const TopNavbar = () => {
   ];
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);
-  const location = useLocation();
+  const { userId } = useContext(IdContext);
+  const [isInstructor, setIsInstructor] = useState(false);
+  useEffect(() => {
+    const checkInstructorStatus = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/instructor/${userId}`,
+          { withCredentials: true }
+        );
+        if (response.data !== "Instructor not found.") {
+          setIsInstructor(true);
+        } else {
+          setIsInstructor(false);
+        }
+      } catch (error) {
+        console.error("Failed to check instructor status:", error);
+      }
+    };
 
+    checkInstructorStatus();
+  }, []); 
+
+  const location = useLocation();
   useEffect(() => {
     // Check if the user is returning from the login page
     if (location.state && location.state.isLoggedIn) {
@@ -39,8 +61,35 @@ const TopNavbar = () => {
     navigate("/user");
   };
 
-  const instructorPage = () => {
-    navigate("/instructor-dashboard");
+  const instructorPage = async() => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/instructor/${userId}`,
+        { withCredentials: true }
+      );
+      if (response.data !== "Instructor not found.") {
+        navigate("/instructor-dashboard");
+      } else{
+         try {
+           const res2 = await axios.post(
+             "http://localhost:4000/instructor/becomeInstructor",
+             {},
+             { withCredentials: true }
+           );
+           if (res2.status === 200) {
+             navigate("/instructor-dashboard");
+           } else {
+             alert("Error occurred");
+           }
+         } catch (error) {
+           console.error(error);
+           // Handle error here
+         }
+      }
+      
+    } catch (error) {
+      
+    }
   };
 
   const handleWishlistClick = () => {
@@ -81,7 +130,7 @@ const TopNavbar = () => {
                 onClick={instructorPage}
                 className="px-4 py-2 border-2 border-blue-700 text-blue-700 rounded-full cursor-pointer transition-colors duration-300 hover:bg-blue-700 hover:text-white shadow-[0_0px_6px_2px_rgba(0,0,0,0.3)] shadow-blue-700 hover:shadow-[0_0px_6px_3px_rgba(0,0,0,0.3)] hover:shadow-blue-700"
               >
-                Be an instructor!
+                {isInstructor ? "Instructor Dashboard" : "Be an instructor!"}
               </button>
               <button
                 className="px-4 py-2 border-2 border-blue-700 text-blue-700 rounded-full cursor-pointer transition-colors duration-300 hover:bg-blue-700 hover:text-white shadow-[0_0px_6px_2px_rgba(0,0,0,0.3)] shadow-blue-700 hover:shadow-[0_0px_6px_3px_rgba(0,0,0,0.3)] hover:shadow-blue-700"
@@ -98,12 +147,6 @@ const TopNavbar = () => {
             </div>
           ) : (
             <div className="flex space-x-4 mt-2 sm:mt-0">
-              <button
-                onClick={instructorPage}
-                className="px-4 py-2 border-2 border-blue-700 text-blue-700 rounded-full cursor-pointer transition-colors duration-300 hover:bg-blue-700 hover:text-white shadow-[0_0px_6px_2px_rgba(0,0,0,0.3)] shadow-blue-700 hover:shadow-[0_0px_6px_3px_rgba(0,0,0,0.3)] hover:shadow-blue-700"
-              >
-                Be an instructor!
-              </button>
               <button
                 className="px-4 py-2 border-2 border-blue-700 bg-blue-700 text-white rounded-full cursor-pointer transition-colors duration-300 hover:bg-blue-900 hover:border-blue-900 shadow-[0_0px_6px_2px_rgba(0,0,0,0.3)] shadow-blue-700 hover:shadow-[0_0px_6px_3px_rgba(0,0,0,0.3)] hover:shadow-blue-900"
                 onClick={handleLogin}

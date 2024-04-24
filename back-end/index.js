@@ -5,18 +5,25 @@ import cors from "cors";
 import passport from "passport";
 import session from "express-session";
 import MongoStore from "connect-mongo";
-import "./auth/mongoAuth.js"
+//import "./auth/mongoAuth.js"
 import mongoRoutes from "./routes/mongoRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js"
 import instructorRoutes from "./routes/instructorRoutes.js";
+import LocalStrategy from "passport-local";
+import User from "./models/userModel.js";
 
 const PORT = process.env.PORT;
 const app = express();
 //middleware for parsing req body in json
 app.use(express.json());
 //middleware for CORS policy
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // replace with your client app URL
+    credentials: true,
+  })
+);
 const mongoDBURL = process.env.DB_URL;
 //session
 const secret = process.env.SECRET ;
@@ -44,22 +51,51 @@ const sessionConfig = {
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
 };
-//session middleware
+// session middleware
 app.use(session(sessionConfig));
+
+// Initialize Passport.js
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req,res,next)=>{
-  res.locals.currentUser=req.user;
+// Passport LocalStrategy for authentication
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "email",
+    },
+    User.authenticate()
+  )
+);
+
+// Serialize user to session
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// Deserialize user from session
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
+});
+
+// Middleware to set currentUser in locals
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
   next();
-})
+});
+
 app.get("/", (req, res) => {
   res.send("Homepage");
 });
 app.use("/", mongoRoutes);
 app.use("/user",userRoutes);
 app.use("/course",courseRoutes);
-app.use("/instructor",instructorRoutes)
+app.use("/instructor",instructorRoutes);
 mongoose
   .connect(mongoDBURL)
   .then(() => {

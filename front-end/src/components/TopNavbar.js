@@ -40,7 +40,7 @@ const TopNavbar = () => {
   };
 
   const instructorPage = () => {
-    navigate("/teach");
+    navigate("/instructor-dashboard");
   };
 
   const handleWishlistClick = () => {

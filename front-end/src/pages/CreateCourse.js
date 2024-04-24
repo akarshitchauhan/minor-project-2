@@ -13,10 +13,6 @@ const CreateCourse = () => {
   const [imagePreview, setImagePreview] = useState(null);
 
   const handleNextStep = () => {
-    setCourseTitle(courseTitle);
-    setCourseInfo(courseInfo);
-    setCoursePrice(coursePrice);
-    setImagePreview(imagePreview);
     setCurrentStep((prevStep) => prevStep + 1);
   };
 
@@ -24,13 +20,48 @@ const CreateCourse = () => {
     setCurrentStep((prevStep) => prevStep - 1);
   };
 
+  const handleStep1Next = (title) => {
+    setCourseTitle(title);
+    handleNextStep();
+  };
+
+  const handleStep2Next = (info) => {
+    setCourseInfo(info);
+    handleNextStep();
+  };
+
+  const handleStep3Next = (price) => {
+    setCoursePrice(price);
+    handleNextStep();
+  };
+
+  const handleStep4Next = (preview) => {
+    setImagePreview(preview);
+    handleNextStep();
+  };
+
   return (
     <div>
-      {currentStep === 1 && <Step1 onNextStep={handleNextStep} />}
-      {currentStep === 2 && <Step2 onNextStep={handleNextStep} onPrevStep={handlePrevStep}/>}
-      {currentStep === 3 && <Step3 onNextStep={handleNextStep} onPrevStep={handlePrevStep}/>}
-      {currentStep === 4 && <Step4 onNextStep={handleNextStep} onPrevStep={handlePrevStep}/>}
-      {currentStep === 5 && <Step5 courseTitle={courseTitle} courseInfo={courseInfo} coursePrice={coursePrice} imagePreview={imagePreview} onNextStep={handleNextStep} />} 
+      {currentStep === 1 && <Step1 onNextStep={handleStep1Next} />}
+      {currentStep === 2 && (
+        <Step2 onNextStep={handleStep2Next} onPrevStep={handlePrevStep} />
+      )}
+      {currentStep === 3 && (
+        <Step3 onNextStep={handleStep3Next} onPrevStep={handlePrevStep} />
+      )}
+      {currentStep === 4 && (
+        <Step4 onNextStep={handleStep4Next} onPrevStep={handlePrevStep} />
+      )}
+      {currentStep === 5 && (
+        <Step5
+          courseTitle={courseTitle}
+          courseInfo={courseInfo}
+          coursePrice={coursePrice}
+          imagePreview={imagePreview}
+          onNextStep={handleNextStep}
+          onPrevStep={handlePrevStep}
+        />
+      )}
     </div>
   );
 };

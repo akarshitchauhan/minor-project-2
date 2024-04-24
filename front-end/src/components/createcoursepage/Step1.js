@@ -22,7 +22,7 @@ const Step1 = ({ onNextStep }) => {
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      onNextStep();
+      onNextStep(courseTitle);
     }
   };
 

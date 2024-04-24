@@ -8,11 +8,10 @@ const Step4 = ({ onNextStep, onPrevStep }) => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
-  const navigate = useNavigate();
 
   const handlenav = () => {
     if (imagePreview) {
-      navigate("/instructor-dashboard");
+      onNextStep(imagePreview);
     } else {
       alert("Please upload an image first.");
     }
@@ -32,7 +31,7 @@ const Step4 = ({ onNextStep, onPrevStep }) => {
   };
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      onNextStep();
+      onNextStep(imagePreview);
     }
   };
 

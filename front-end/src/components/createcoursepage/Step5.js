@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import axios from "axios";
-
+import { IdContext } from "../..";
 const Step5 = ({ courseTitle, courseInfo, imagePreview, coursePrice, onNextStep, onPrevStep }) => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
   const navigate = useNavigate();
-
+  const { userId, setUserId } = useContext(IdContext);
   const [coursePlaylist, setCoursePlaylist] = useState("");
 
   const handleInputChange = (event) => {
@@ -32,6 +32,7 @@ const Step5 = ({ courseTitle, courseInfo, imagePreview, coursePrice, onNextStep,
     try {
       // Make POST request to backend with course data
       const response = await axios.post("http://localhost:4000/course/create", {
+        userId:userId,
         courseTitle: courseTitle,
         courseInfo: courseInfo,
         coursePrice: coursePrice,

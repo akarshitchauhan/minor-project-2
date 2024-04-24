@@ -21,9 +21,9 @@ const videoUser = async (playlistId) => {
 
 const createCourse=async(req,res)=>{
     try {
-        const {courseName,cost,duration,playlistUrl}=req.body;
+        const {courseTitle,coursePrice,coursePlaylist,courseInfo}=req.body;
         //const owner=req.user._id;
-        const url = new URL(playlistUrl);
+        const url = new URL(coursePlaylist);
         const params = new URLSearchParams(url.search);
         const playlistId = params.get("list");
         if (!playlistId){
@@ -34,13 +34,11 @@ const createCourse=async(req,res)=>{
         const videoLinks = await videoUser(playlistId);
         const noOfVideos = videoLinks.length;
         const course = new Course({
-          courseName,
-          cost,
-          duration,
+          courseTitle,coursePrice,coursePlaylist,
           noOfVideos,
           videoLinks,
-          playlistUrl,
-          owner:ownerId
+          owner:ownerId,
+          courseInfo
         });
         const savedCourse = await course.save();
         const instructor = await Instructor.findById(ownerId);

@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-const { Schema } = mongoose;
-
-const videoSchema = new Schema(
+const videoSchema = new mongoose.Schema(
     {
         course: {
             type: Schema.Types.ObjectId,

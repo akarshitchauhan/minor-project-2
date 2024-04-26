@@ -16,19 +16,29 @@ const InstructorDashboard = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/instructor/${userId}`,{withCredentials:true});
-      setCourses(response.data.courses);
-      console.log(response.data.courses)
-      const response2 = await axios.get(
-        `http://localhost:4000/course/${response.data.courses[1]}`
-        
+      const response = await axios.get(
+        `http://localhost:4000/instructor/${userId}`,
+        { withCredentials: true }
       );
-      console.log(response2.data)
-      setCourses(response2.data)
+      const courseIds = response.data.courses;
+      // console.log(courseIds);
+
+      const courseDetailsPromises = courseIds.map(async (id) => {
+        const response = await axios.get(`http://localhost:4000/course/${id}`, {
+          withCredentials: true,
+        });
+        return response.data;
+      });
+
+      const courseDetails = await Promise.all(courseDetailsPromises);
+      // console.log(courseDetails);
+      setCourses(courseDetails);
     } catch (error) {
       console.error("Error fetching courses:", error);
     }
   };
+
+  const flatCourses = [].concat(...courses);
 
   const handleNav = () => {
     navigate("/teach");
@@ -111,25 +121,32 @@ const InstructorDashboard = () => {
             Add new course!
           </button>
         </div>
-        {/* Display courses ahuja */}
-        <div>
-          <h1>{courses.courseTitle}</h1>
-          <h1>{courses.coursePrice}</h1>
-          <h1>{courses.courseInfo}</h1>
-        </div>
         {/* Display courses */}
-        {/* <div className="mt-8">
-          {courses.length > 0 ? (
-            courses.map((course) => (
-              <div key={course.id} className="bg-white rounded-md p-6 shadow-md mt-4">
-                <h2 className="text-xl font-semibold">{course.title}</h2>
-                <p className="text-gray-700">{course.description}</p>
-              </div>
-            ))
+        <div className="mt-8">
+          {flatCourses.length > 0 ? (
+            flatCourses.map((course, index) => {
+              return (
+                <div
+                  key={index}
+                  className="bg-white rounded-md p-6 shadow-md mt-4"
+                  onClick={() => navigate("/course/course-learn")}
+                >
+                  <h2 className="text-xl font-semibold">
+                    {course.courseTitle || "No title"}
+                  </h2>
+                  <p className="text-gray-700">
+                    Price: {course.coursePrice || "No price"}
+                  </p>
+                  <p className="text-gray-700">
+                    Info: {course.courseInfo || "No videos"}
+                  </p>
+                </div>
+              );
+            })
           ) : (
             <p className="mt-4 text-gray-700">No courses available.</p>
           )}
-        </div> */}
+        </div>
       </div>
     </div>
   );

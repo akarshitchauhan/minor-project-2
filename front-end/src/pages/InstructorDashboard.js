@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { IdContext } from "../..";
 
 const InstructorDashboard = () => {
   const navigate = useNavigate();
+  const { userId, setUserId } = useContext(IdContext);
+
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    // Fetch courses from the backend when component mounts
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async (userId) => {
+    try {
+      const response = await axios.get("http://localhost:4000/course/${userId}");
+      setCourses(response.data);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
+  };
 
   const handleNav = () => {
     navigate("/teach");
@@ -82,8 +101,22 @@ const InstructorDashboard = () => {
             className="px-4 py-2 border-2 border-blue-700 bg-blue-700 text-white rounded-full cursor-pointer transition-colors duration-300 hover:bg-blue-900 hover:border-blue-900 shadow-[0_0px_6px_2px_rgba(0,0,0,0.3)] shadow-blue-700 hover:shadow-[0_0px_6px_3px_rgba(0,0,0,0.3)] hover:shadow-blue-900"
             onClick={handleNav}
           >
-            Create a new course!
+            Add new course!
           </button>
+        </div>
+        
+        {/* Display courses */}
+        <div className="mt-8">
+          {courses.length > 0 ? (
+            courses.map((course) => (
+              <div key={course.id} className="bg-white rounded-md p-6 shadow-md mt-4">
+                <h2 className="text-xl font-semibold">{course.title}</h2>
+                <p className="text-gray-700">{course.description}</p>
+              </div>
+            ))
+          ) : (
+            <p className="mt-4 text-gray-700">No courses available.</p>
+          )}
         </div>
       </div>
     </div>

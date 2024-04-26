@@ -24,7 +24,7 @@ const router = createBrowserRouter([
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState("id");
+  const [userId, setUserId] = useState("");
   return (
     <div>
       <AuthContext.Provider

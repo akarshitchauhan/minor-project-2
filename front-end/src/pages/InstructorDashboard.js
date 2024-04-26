@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { IdContext } from "../..";
+import { IdContext } from "..";
 
 const InstructorDashboard = () => {
   const navigate = useNavigate();
@@ -14,10 +14,17 @@ const InstructorDashboard = () => {
     fetchCourses();
   }, []);
 
-  const fetchCourses = async (userId) => {
+  const fetchCourses = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/course/${userId}");
-      setCourses(response.data);
+      const response = await axios.get(`http://localhost:4000/instructor/${userId}`,{withCredentials:true});
+      setCourses(response.data.courses);
+      console.log(response.data.courses)
+      const response2 = await axios.get(
+        `http://localhost:4000/course/${response.data.courses[1]}`
+        
+      );
+      console.log(response2.data)
+      setCourses(response2.data)
     } catch (error) {
       console.error("Error fetching courses:", error);
     }
@@ -104,9 +111,14 @@ const InstructorDashboard = () => {
             Add new course!
           </button>
         </div>
-        
+        {/* Display courses ahuja */}
+        <div>
+          <h1>{courses.courseTitle}</h1>
+          <h1>{courses.coursePrice}</h1>
+          <h1>{courses.courseInfo}</h1>
+        </div>
         {/* Display courses */}
-        <div className="mt-8">
+        {/* <div className="mt-8">
           {courses.length > 0 ? (
             courses.map((course) => (
               <div key={course.id} className="bg-white rounded-md p-6 shadow-md mt-4">
@@ -117,7 +129,7 @@ const InstructorDashboard = () => {
           ) : (
             <p className="mt-4 text-gray-700">No courses available.</p>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

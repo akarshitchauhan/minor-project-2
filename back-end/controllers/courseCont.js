@@ -16,7 +16,7 @@ const videoUser = async (playlistId) => {
     return videoUrls;
   } catch (error) {
     console.error(error);
-    return [];
+    return ["error"];
   }
 };
 

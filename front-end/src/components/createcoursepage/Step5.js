@@ -66,7 +66,7 @@ const Step5 = ({ courseTitle, courseInfo, imagePreview, coursePrice, onNextStep,
             <input
               className="w-96 h-14 p-8 px-4 py-2 border rounded-full text-base justify-center items-center text-black border-gray-300 shadow-[0_0px_6px_2px_rgba(0,0,0,0.3)] shadow-gray-300 hover:shadow-[0_0px_6px_3px_rgba(0,0,0,0.3)] hover:shadow-gray-300"
               type="text"
-              placeholder="Rs 3500..."
+              placeholder="Please provide youtube link here"
               onChange={handleInputChange}
               onKeyPress={handleKeyPress}
             />

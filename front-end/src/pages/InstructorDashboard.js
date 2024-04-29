@@ -8,6 +8,10 @@ const InstructorDashboard = () => {
   const { userId, setUserId } = useContext(IdContext);
 
   const [courses, setCourses] = useState([]);
+  const [showInfoPopup, setShowInfoPopup] = useState(false); // State to manage popup visibility
+  const [showQuizPopup, setShowQuizPopup] = useState(false); // State to manage popup visibility
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [numVideos, setNumVideos] = useState(0); // State to store number of videos for the selected course
 
   useEffect(() => {
     // Fetch courses from the backend when component mounts
@@ -31,7 +35,7 @@ const InstructorDashboard = () => {
       });
 
       const courseDetails = await Promise.all(courseDetailsPromises);
-      // console.log(courseDetails);
+      console.log(courseDetails);
       setCourses(courseDetails);
     } catch (error) {
       console.error("Error fetching courses:", error);
@@ -42,6 +46,16 @@ const InstructorDashboard = () => {
 
   const handleNav = () => {
     navigate("/teach");
+  };
+
+  const handleQuizbutton = () => {
+    setShowQuizPopup(true);
+  }
+
+  const handleAddQuiz = (course) => {
+    setSelectedCourse(course);
+    setNumVideos(course.noOfVideos); // Set the number of videos for the selected course
+    setShowInfoPopup(true);
   };
 
   return (
@@ -129,7 +143,6 @@ const InstructorDashboard = () => {
                 <div
                   key={index}
                   className="bg-white rounded-md p-6 shadow-md mt-4"
-                  onClick={() => navigate("/course/course-learn")}
                 >
                   <h2 className="text-xl font-semibold">
                     {course.courseTitle || "No title"}
@@ -140,6 +153,12 @@ const InstructorDashboard = () => {
                   <p className="text-gray-700">
                     Info: {course.courseInfo || "No videos"}
                   </p>
+                  <button
+                    onClick={() => handleAddQuiz(course)} // Pass the course to the handler
+                    className="mt-4 bg-blue-700 text-white px-4 py-2 rounded-md cursor-pointer transition-colors duration-300 hover:bg-blue-900"
+                  >
+                    More Info
+                  </button>
                 </div>
               );
             })
@@ -147,6 +166,116 @@ const InstructorDashboard = () => {
             <p className="mt-4 text-gray-700">No courses available.</p>
           )}
         </div>
+        {/* Popup Container */}
+        {showInfoPopup && (
+          <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+            <div className="bg-white p-8 rounded-md shadow-md">
+              <h2 className="text-xl font-semibold mb-4">
+                Add Quiz to {selectedCourse?.courseTitle}
+              </h2>
+              {/* Add sub-card like containers for each YouTube video */}
+              {Array.from({ length: numVideos }).map((_, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-100 rounded-md p-4 mt-4 flex items-center justify-between"
+                >
+                  <h3 className="text-lg font-semibold mb-0 mr-16">
+                    Video {index + 1}
+                  </h3>
+                  {/* Add Quiz button for each video */}
+                  <button onClick={handleQuizbutton} className="bg-blue-700 text-white px-4 py-2 rounded-md cursor-pointer transition-colors duration-300 hover:bg-blue-900">
+                    Add Quiz
+                  </button>
+                </div>
+              ))}
+              <div className="flex justify-end mt-6">
+                <button
+                  onClick={() => setShowInfoPopup(false)}
+                  className="bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer transition-colors duration-300 hover:bg-red-600"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        {/* Popup Container for adding quiz */}
+        {showQuizPopup && (
+          <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+            <div className="bg-white p-8 rounded-md shadow-md">
+              <h2 className="text-xl font-semibold mb-4">
+                Add Quiz to {selectedCourse?.courseTitle}
+              </h2>
+              {/* Add quiz form fields */}
+              <div className="mt-4">
+                <label htmlFor="question" className="block font-semibold mb-2">
+                  Question:
+                </label>
+                <input
+                  type="text"
+                  id="question"
+                  name="question"
+                  className="border border-gray-300 rounded-md px-4 py-2 mb-4 w-full"
+                  placeholder="Enter your question"
+                />
+              </div>
+              <div className="mt-4">
+                <p className="block font-semibold mb-2">Options:</p>
+                <div>
+                  <input
+                    type="text"
+                    id="option1"
+                    name="option1"
+                    className="border border-gray-300 rounded-md px-4 py-2 mb-2 w-full"
+                    placeholder="Option 1"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    id="option2"
+                    name="option2"
+                    className="border border-gray-300 rounded-md px-4 py-2 mb-2 w-full"
+                    placeholder="Option 2"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    id="option3"
+                    name="option3"
+                    className="border border-gray-300 rounded-md px-4 py-2 mb-2 w-full"
+                    placeholder="Option 3"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    id="option4"
+                    name="option4"
+                    className="border border-gray-300 rounded-md px-4 py-2 mb-2 w-full"
+                    placeholder="Option 4"
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end mt-6">
+                <button
+                  onClick={() => setShowQuizPopup(false)}
+                  className="bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer transition-colors duration-300 hover:bg-red-600"
+                >
+                  Cancel
+                </button>
+                {/* Add Quiz button */}
+                <button
+                  className="bg-blue-700 text-white px-4 py-2 rounded-md ml-4 cursor-pointer transition-colors duration-300 hover:bg-blue-900"
+                  // Add onClick handler to save the quiz
+                >
+                  Add Quiz
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

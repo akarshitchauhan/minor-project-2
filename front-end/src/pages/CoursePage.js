@@ -19,11 +19,6 @@ const CoursePage = () => {
     AOS.init({ duration: 1500 });
   }, []);
 
-  document.addEventListener("visibilitychange", function() {
-    document.title = document.visibilityState;
-    alert("Don't switch tab");
-    console.log("Don't switch tab");
-  })
 
   console.log(courseData);
   return (

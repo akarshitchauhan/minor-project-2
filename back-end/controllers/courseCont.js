@@ -1,5 +1,5 @@
-import  Course from "../models/courseModel.js";
-import Instructor from "../models/instructorModel.js"
+import Course from "../models/courseModel.js";
+import Instructor from "../models/instructorModel.js";
 import axios from "axios";
 import "dotenv/config";
 
@@ -7,55 +7,62 @@ const videoUser = async (playlistId) => {
   try {
     const apiKey = process.env.API_KEY;
     const response = await axios.get(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=${playlistId}&key=${apiKey}`
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&key=${apiKey}`
     );
 
-    const videoUrls = response.data.items.map(
-      (item) => `https://www.youtube.com/watch?v=${item.contentDetails.videoId}`
-    );
-    return videoUrls;
+    const videoDetails = response.data.items.map((item) => {
+      return {
+        title: item.snippet.title,
+        thumbnailUrl: item.snippet.thumbnails.default.url,
+        videoUrl: `https://www.youtube.com/watch?v=${item.snippet.resourceId.videoId}`,
+      };
+    });
+
+    return videoDetails;
   } catch (error) {
     console.error(error);
-    return ["error"];
+    return [];
   }
 };
 
-const createCourse=async(req,res)=>{
-    try {
-        const {courseTitle,coursePrice,coursePlaylist,courseInfo}=req.body;
-        //const owner=req.user._id;
-        const url = new URL(coursePlaylist);
-        const params = new URLSearchParams(url.search);
-        const playlistId = params.get("list");
-        if (!playlistId){
-          console.log(playlistId)
-          return res.json("Broken url")
-        }
-        const ownerId=req.user._id;
-        const videoLinks = await videoUser(playlistId);
-        const noOfVideos = videoLinks.length;
-        const course = new Course({
-          courseTitle,coursePrice,coursePlaylist,
-          noOfVideos,
-          videoLinks,
-          owner:ownerId,
-          courseInfo
-        });
-        const savedCourse = await course.save();
-        const instructor = await Instructor.findById(ownerId);
-        if (!instructor) {
-          console.error("Instructor not found");
-          return res.status(404).json({ message: "Instructor not found" });
-        }
-        instructor.courses.push(savedCourse._id);
-        await instructor.save();
-        return res.json(savedCourse);
-    } catch (error) {
-        console.error(error);
-        return res
-          .status(500)
-          .json({ message: "An error occurred while creating the course." });
+const createCourse = async (req, res) => {
+  try {
+    const { courseTitle, coursePrice, coursePlaylist, courseInfo } = req.body;
+    //const owner=req.user._id;
+    const url = new URL(coursePlaylist);
+    const params = new URLSearchParams(url.search);
+    const playlistId = params.get("list");
+    if (!playlistId) {
+      console.log(playlistId);
+      return res.json("Broken url");
     }
+    const ownerId = req.user._id;
+    const videoDetails = await videoUser(playlistId);
+    const noOfVideos = videoDetails.length;
+    const course = new Course({
+      courseTitle,
+      coursePrice,
+      coursePlaylist,
+      noOfVideos,
+      videoDetails,
+      owner: ownerId,
+      courseInfo,
+    });
+    const savedCourse = await course.save();
+    const instructor = await Instructor.findById(ownerId);
+    if (!instructor) {
+      console.error("Instructor not found");
+      return res.status(404).json({ message: "Instructor not found" });
+    }
+    instructor.courses.push(savedCourse._id);
+    await instructor.save();
+    return res.json(savedCourse);
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: "An error occurred while creating the course." });
+  }
 };
 const viewCourse = async (req, res) => {
   try {
@@ -103,4 +110,4 @@ const deleteCourse = async (req, res) => {
   }
 };
 
-export {createCourse,viewCourse,updateCourse,deleteCourse}
+export { createCourse, viewCourse, updateCourse, deleteCourse };

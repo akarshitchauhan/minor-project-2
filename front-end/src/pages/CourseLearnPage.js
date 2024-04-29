@@ -95,7 +95,14 @@ const CourseLearnPage = () => {
     // Reset the video's current time to prevent manual seeking
     alert("Manual seeking disabled.");
   };
+function handleVisibilityChange() {
+  alert("Tab was Switched");
+  console.log("Don't switch tab");
+  // Remove the event listener
+  document.removeEventListener("visibilitychange", handleVisibilityChange);
+}
 
+document.addEventListener("visibilitychange", handleVisibilityChange);
   return (
     <div className="flex h-screen">
       {/* Side Navbar for Sections and Subsections */}

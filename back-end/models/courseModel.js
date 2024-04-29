@@ -29,10 +29,20 @@ const courseSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    videoLinks: [
+    videoDetails: [
       {
-        type: String,
-        required: true,
+        title: {
+          type: String,
+          required: true,
+        },
+        thumbnailUrl: {
+          type: String,
+          required: true,
+        },
+        videoUrl: {
+          type: String,
+          required: true,
+        },
       },
     ],
     imagePreview: {

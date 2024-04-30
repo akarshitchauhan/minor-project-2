@@ -10,6 +10,7 @@ import mongoRoutes from "./routes/mongoRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import courseRoutes from "./routes/courseRoutes.js"
 import instructorRoutes from "./routes/instructorRoutes.js";
+import quizRoutes from "./routes/quizRoutes.js"
 import LocalStrategy from "passport-local";
 import User from "./models/userModel.js";
 
@@ -96,6 +97,7 @@ app.use("/", mongoRoutes);
 app.use("/user",userRoutes);
 app.use("/course",courseRoutes);
 app.use("/instructor",instructorRoutes);
+app.use("/quiz",quizRoutes);
 mongoose
   .connect(mongoDBURL)
   .then(() => {

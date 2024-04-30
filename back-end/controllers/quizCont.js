@@ -4,7 +4,7 @@ import Course from "../models/courseModel.js";
 const createQuiz = async (req, res) => {
   try {
     const { courseId, questions } = req.body;
-    const course = await Course.findById(courseId).populate("videoLinks");
+    const course = await Course.findById(courseId);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
@@ -16,7 +16,7 @@ const createQuiz = async (req, res) => {
         ques,
         ans,
         correct,
-        videoLink: course.videoLinks[index],
+        videoLink: course.videoDetails[index].videoUrl,
       });
       return quiz;
     });

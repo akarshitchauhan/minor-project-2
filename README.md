@@ -45,3 +45,7 @@ This is a learning management system designed to facilitate online education and
    ```
 
 Now you should be able to access the Learning Management System in your browser and start using it.
+
+<img src="https://github.com/akarshitchauhan/minor-project-2/assets/100299605/db38631a-0888-41cc-83cc-9d92fc54693f"  height="300">
+<br><br>
+<img src="https://github.com/akarshitchauhan/minor-project-2/assets/100299605/460b6794-943b-4d6e-83b5-41a999fc1cb6" height="300">

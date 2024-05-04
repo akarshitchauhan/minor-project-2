@@ -11,7 +11,7 @@ const InstructorDashboard = () => {
   const [showInfoPopup, setShowInfoPopup] = useState(false); // State to manage popup visibility
   const [showQuizPopup, setShowQuizPopup] = useState(false); // State to manage popup visibility
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const[ addQuiz,setAddQuiz]=useState(false);
+  const [addQuiz, setAddQuiz] = useState(false);
   const [numVideos, setNumVideos] = useState(0); // State to store number of videos for the selected course
   const [quizzes, setQuizzes] = useState({});
   const [enterQuiz, setEnterQuiz] = useState({
@@ -58,6 +58,13 @@ const InstructorDashboard = () => {
 
   const handleNav = () => {
     navigate("/teach");
+  };
+
+  const [isVerified, setIsVerified] = useState(false);
+
+  const handleVerify = () => {
+    setIsVerified(true);
+    // Add your logic here to send the course for verification
   };
 
   const handleQuizbutton = () => {
@@ -238,6 +245,19 @@ const InstructorDashboard = () => {
                   >
                     More Info
                   </button>
+                  {!isVerified && (
+                    <button
+                      className="bg-blue-700 ml-12 text-white px-4 py-2 rounded-md cursor-pointer transition-colors duration-300 hover:bg-blue-900"
+                      onClick={handleVerify}
+                    >
+                      Verify
+                    </button>
+                  )}
+                  {isVerified && (
+                    <div className="popup-card mt-4 bg-blue-700 text-white px-4 py-2 rounded-md cursor-pointer transition-colors duration-300 hover:bg-blue-900">
+                      <p>Your course has been sent for verification.</p>
+                    </div>
+                  )}
                 </div>
               );
             })
